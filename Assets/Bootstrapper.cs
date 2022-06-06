@@ -8,7 +8,6 @@ namespace Assets
         public void Init()
         {
             var inGameWorld = new World();
-            inGameWorld.AddSystem(null);
         }
 
         public void Start()
