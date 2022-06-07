@@ -1,5 +1,4 @@
-﻿using Assets.ECS;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets
 {
@@ -7,7 +6,7 @@ namespace Assets
     {
         public void Init()
         {
-            var inGameWorld = new World();
+
         }
 
         public void Start()
