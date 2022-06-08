@@ -31,7 +31,8 @@ namespace Assets
                 .FromInstance(loggerService)
                 .AsSingle();
 
-            Container.Bind(typeof(IGameQuit), typeof(ICreateNewGame), typeof(IInitializable))
+            Container.Bind(typeof(IGameQuit), 
+                    typeof(ICreateNewGame), typeof(ILoadSaveGamesService), typeof(IInitializable))
                 .To<GameService>()
                 .AsSingle()
                 .WithArguments<Action>(QuitGame)
@@ -39,7 +40,7 @@ namespace Assets
 
             Container.Bind(typeof(IDataStorageService<List<GameModel>>), typeof(IInitializable))
                 .To<GameStorageService<string>>()
-                .FromInstance(new GameStorageService<List<GameModel>>(Application.persistentDataPath + "/db/demo.dat", new List<GameModel>()))
+                .FromInstance(new GameStorageService<List<GameModel>>(Application.persistentDataPath + "/db/games.dat", new List<GameModel>()))
                 .AsSingle();
                 
 

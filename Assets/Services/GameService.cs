@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Assets.Services
 {
-    public class GameService : IInitializable, ICreateNewGame, IGameQuit
+    public class GameService : IInitializable, ICreateNewGame, ILoadSaveGamesService, IGameQuit
     {
         private readonly Action _onGameQuit;
         private ILoggerService _logger;
@@ -25,10 +25,15 @@ namespace Assets.Services
             return newGameModel.Id;
         }
 
+        public List<GameModel> GetSaveGames()
+        {
+            return new List<GameModel>(_dataStorage.Current);
+        }
+
         public void Initialize()
         {
             _logger = RefInstances.Container.Resolve<ILoggerService>();
-            _dataStorage = RefInstances.Container.Resolve<IDataStorageService<string>>();
+            _dataStorage = RefInstances.Container.Resolve<IDataStorageService<List<GameModel>>>();
         }
 
         public void QuitFromGame()

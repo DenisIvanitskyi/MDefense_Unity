@@ -1,7 +1,6 @@
 ﻿using Assets.Services.Base;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Assets.UI
@@ -10,6 +9,7 @@ namespace Assets.UI
     {
         private GameObject _currentView = null;
         private readonly GameObject _defaulView, _newGameView, _saveGamesView, _settingsView;
+        private readonly GameObject _saveGamesList;
         private readonly TMP_InputField _inputNewGameName;
         private IGameQuit _gameQuit;
 
@@ -17,12 +17,14 @@ namespace Assets.UI
             GameObject newGameView,
             GameObject saveGamesView,
             GameObject settingsView,
+            GameObject saveGamesList,
             TMP_InputField inputNewGameName)
         {
             _defaulView = defaultView;
             _newGameView = newGameView;
             _saveGamesView = saveGamesView;
             _settingsView = settingsView;
+            _saveGamesList = saveGamesList;
             _inputNewGameName = inputNewGameName;
         }
 
