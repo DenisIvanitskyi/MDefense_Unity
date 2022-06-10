@@ -19,7 +19,13 @@ namespace Assets
             _newGameMenuView, _saveGamesMenuView, _settingsMenuView;
 
         [SerializeField]
+        private GameObject _saveGamesContent;
+
+        [SerializeField]
         private TMP_InputField _inputNewGameName;
+
+        [SerializeField]
+        private GameObject _listItemPrefab;
 
         public override void InstallBindings()
         {
@@ -39,15 +45,20 @@ namespace Assets
                 .NonLazy();
 
             Container.Bind(typeof(IDataStorageService<List<GameModel>>), typeof(IInitializable))
-                .To<GameStorageService<string>>()
+                .To<GameStorageService<List<GameModel>>>()
                 .FromInstance(new GameStorageService<List<GameModel>>(Application.persistentDataPath + "/db/games.dat", new List<GameModel>()))
                 .AsSingle();
                 
 
             Container.Bind(typeof(IMenuController), typeof(IInitializable))
                 .To<MenuController>()
-                .FromInstance(new MenuController(_defaultMenuView, _newGameMenuView, _saveGamesMenuView, _settingsMenuView, _inputNewGameName))
+                .FromInstance(new MenuController(_defaultMenuView, _newGameMenuView, _saveGamesMenuView, _settingsMenuView, _saveGamesContent, _inputNewGameName))
                 .AsSingle();
+
+            Container.Bind<ISaveGamesController>()
+                .To<SaveGamesController>()
+                .AsSingle()
+                .WithArguments(_saveGamesContent, _listItemPrefab);
 
             loggerService.Log("Bootstrapper init!");
         }

@@ -1,4 +1,5 @@
 ﻿using Assets.Services.Base;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,8 @@ namespace Assets.UI
         private readonly GameObject _saveGamesList;
         private readonly TMP_InputField _inputNewGameName;
         private IGameQuit _gameQuit;
+        private ILoadSaveGamesService _loadSaveGamesService;
+        private ISaveGamesController _saveGamesController;
 
         public MenuController(GameObject defaultView,
             GameObject newGameView,
@@ -31,6 +34,9 @@ namespace Assets.UI
         public void Initialize()
         {
             _gameQuit = RefInstances.Container.TryResolve<IGameQuit>();
+            _loadSaveGamesService = RefInstances.Container.TryResolve<ILoadSaveGamesService>();
+            _saveGamesController = RefInstances.Container.TryResolve<ISaveGamesController>();
+
             _settingsView.SetActive(false);
             _saveGamesView.SetActive(false);
             _newGameView.SetActive(false);
@@ -50,6 +56,9 @@ namespace Assets.UI
         public void DisplaySaveGames()
         {
             ChangeCurrentView(_saveGamesView);
+
+            var games = _loadSaveGamesService.GetSaveGames();
+            _saveGamesController?.Show(games.Select(e => e.Name));
         }
 
         public void DisplaySettings()

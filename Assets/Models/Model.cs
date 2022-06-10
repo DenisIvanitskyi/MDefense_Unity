@@ -2,6 +2,7 @@
 
 namespace Assets.Models
 {
+    [Serializable]
     public class Model
     {
         public Model()

@@ -1,4 +1,5 @@
-﻿using Assets.Services.Base;
+﻿using Assets.Models;
+using Assets.Services.Base;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;

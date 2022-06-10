@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Assets.Models
 {
+    [Serializable]
     public class GameModel : Model
     {
-        public GameModel() : base(Guid.NewGuid())
+        public GameModel()
         {
 
         }

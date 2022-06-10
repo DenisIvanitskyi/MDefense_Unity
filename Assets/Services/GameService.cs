@@ -27,6 +27,7 @@ namespace Assets.Services
 
         public List<GameModel> GetSaveGames()
         {
+            _dataStorage.Load();
             return new List<GameModel>(_dataStorage.Current);
         }
 
