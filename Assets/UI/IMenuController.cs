@@ -14,5 +14,7 @@ namespace Assets.UI
         void Exit();
 
         string GetNewGameName();
+
+        string GetTextFromSaveGamesSearchTb();
     }
 }

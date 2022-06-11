@@ -12,6 +12,7 @@ namespace Assets.UI
         private readonly GameObject _defaulView, _newGameView, _saveGamesView, _settingsView;
         private readonly GameObject _saveGamesList;
         private readonly TMP_InputField _inputNewGameName;
+        private readonly TMP_InputField _inputSearchSaveGames;
         private IGameQuit _gameQuit;
         private ILoadSaveGamesService _loadSaveGamesService;
         private ISaveGamesController _saveGamesController;
@@ -22,14 +23,17 @@ namespace Assets.UI
             GameObject saveGamesView,
             GameObject settingsView,
             GameObject saveGamesList,
-            TMP_InputField inputNewGameName)
+            TMP_InputField inputNewGameName,
+            TMP_InputField inputSearchSaveGames)
         {
             _defaulView = defaultView;
             _newGameView = newGameView;
             _saveGamesView = saveGamesView;
             _settingsView = settingsView;
             _saveGamesList = saveGamesList;
+
             _inputNewGameName = inputNewGameName;
+            _inputSearchSaveGames = inputSearchSaveGames;
         }
 
         public void Initialize()
@@ -87,5 +91,8 @@ namespace Assets.UI
 
         public string GetNewGameName()
             => _inputNewGameName.text;
+
+        public string GetTextFromSaveGamesSearchTb()
+            => _inputSearchSaveGames.text;
     }
 }

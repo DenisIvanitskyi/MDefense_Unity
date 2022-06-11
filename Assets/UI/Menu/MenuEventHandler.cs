@@ -15,15 +15,28 @@ namespace Assets.UI.Menu
 
     public class MenuEventHandler : MonoBehaviour
     {
+
         private IMenuController _menuController;
         private ICreateNewGame _gameCreator;
+        private ISaveGamesController _saveGamesController;
 
         [Inject]
         public void Constructor(IMenuController menuController,
-            ICreateNewGame gameCreator)
+            ICreateNewGame gameCreator,
+            ISaveGamesController saveGamesController)
         {
             _menuController = menuController;
             _gameCreator = gameCreator;
+            _saveGamesController = saveGamesController;
+        }
+
+        public void FilterForSaveGames()
+        {
+            var filterString = _menuController?.GetTextFromSaveGamesSearchTb() ?? string.Empty;
+            if (string.IsNullOrEmpty(filterString))
+                _saveGamesController?.ApplyFilter(null);
+            else
+                _saveGamesController?.ApplyFilter(e => e.ToLower().IndexOf(filterString.ToLower()) >= 0);
         }
 
         public void CreateNewGame()

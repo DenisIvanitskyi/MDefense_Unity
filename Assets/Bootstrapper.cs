@@ -22,7 +22,7 @@ namespace Assets
         private GameObject _saveGamesContent;
 
         [SerializeField]
-        private TMP_InputField _inputNewGameName;
+        private TMP_InputField _inputNewGameName, _inputSearchSaveGames;
 
         [SerializeField]
         private GameObject _listItemPrefab;
@@ -52,7 +52,8 @@ namespace Assets
 
             Container.Bind(typeof(IMenuController), typeof(IInitializable))
                 .To<MenuController>()
-                .FromInstance(new MenuController(_defaultMenuView, _newGameMenuView, _saveGamesMenuView, _settingsMenuView, _saveGamesContent, _inputNewGameName))
+                .FromInstance(new MenuController(_defaultMenuView, _newGameMenuView, _saveGamesMenuView, _settingsMenuView, _saveGamesContent, 
+                    _inputNewGameName, _inputSearchSaveGames))
                 .AsSingle();
 
             Container.Bind<ISaveGamesController>()

@@ -31,6 +31,8 @@ namespace Assets.Services
                 var directionName = Path.GetDirectoryName(_path);
                 if (!Directory.Exists(directionName))
                     Directory.CreateDirectory(directionName);
+
+                Load();
             }
             catch(Exception er)
             {
