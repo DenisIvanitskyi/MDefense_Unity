@@ -15,6 +15,7 @@ namespace Assets.UI
         private IGameQuit _gameQuit;
         private ILoadSaveGamesService _loadSaveGamesService;
         private ISaveGamesController _saveGamesController;
+        private ILoggerService _loggerService;
 
         public MenuController(GameObject defaultView,
             GameObject newGameView,
@@ -36,6 +37,7 @@ namespace Assets.UI
             _gameQuit = RefInstances.Container.TryResolve<IGameQuit>();
             _loadSaveGamesService = RefInstances.Container.TryResolve<ILoadSaveGamesService>();
             _saveGamesController = RefInstances.Container.TryResolve<ISaveGamesController>();
+            _loggerService = RefInstances.Container.TryResolve<ILoggerService>();
 
             _settingsView.SetActive(false);
             _saveGamesView.SetActive(false);
@@ -75,6 +77,8 @@ namespace Assets.UI
         {
             if (view != _currentView)
             {
+                _loggerService?.Log($"Change menu view from: {_currentView} to {view}");
+
                 _currentView?.SetActive(false);
                 _currentView = view;
                 _currentView.SetActive(true);
