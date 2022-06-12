@@ -3,8 +3,6 @@ namespace Assets.UI
 {
     public interface IMenuController
     {
-        void OnNewGameTextChanged();
-
         void DisplayGeneralMenu();
 
         void DisplayNewGame();
@@ -14,9 +12,5 @@ namespace Assets.UI
         void DisplaySettings();
 
         void Exit();
-
-        string GetNewGameName();
-
-        string GetTextFromSaveGamesSearchTb();
     }
 }

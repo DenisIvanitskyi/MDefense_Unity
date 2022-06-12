@@ -1,6 +1,4 @@
-﻿
-using Assets.Services.Base;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Assets.UI.Menu
@@ -15,29 +13,8 @@ namespace Assets.UI.Menu
 
     public class MenuEventHandler : MonoBehaviour
     {
-
-        private IMenuController _menuController;
-        private IGameService _gameCreator;
-        private ISaveGamesController _saveGamesController;
-
         [Inject]
-        public void Constructor(IMenuController menuController,
-            IGameService gameCreator,
-            ISaveGamesController saveGamesController)
-        {
-            _menuController = menuController;
-            _gameCreator = gameCreator;
-            _saveGamesController = saveGamesController;
-        }
-
-        public void FilterForSaveGames()
-        {
-            var filterString = _menuController?.GetTextFromSaveGamesSearchTb() ?? string.Empty;
-            if (string.IsNullOrEmpty(filterString))
-                _saveGamesController?.ApplyFilter(null);
-            else
-                _saveGamesController?.ApplyFilter(e => e.ToLower().IndexOf(filterString.ToLower()) >= 0);
-        }
+        private IMenuController _menuController;
 
         public void OpenDefaultMenu()
         {

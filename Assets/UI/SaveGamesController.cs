@@ -6,15 +6,13 @@ namespace Assets.UI
 {
     public class SaveGamesController : ISaveGamesController
     {
-        private readonly GameObject _rootContent;
-        private readonly GameObject _tableItemPrefab;
+        private GameObject _rootContent;
+        private GameObject _tableItemPrefab;
 
         private readonly List<SaveGamesItem> _items;
 
-        public SaveGamesController(GameObject rootContent, GameObject tableItemPrefab)
+        public SaveGamesController()
         {
-            _rootContent = rootContent;
-            _tableItemPrefab = tableItemPrefab;
             _items = new List<SaveGamesItem>();
         }
 
@@ -46,9 +44,14 @@ namespace Assets.UI
                 _items.Add(tableItem);
                 tableItem.Titlte = item;
                 var rectTransfrom = tableItem.gameObject.GetComponent<RectTransform>();
-                rectTransfrom.localScale = Vector3.one;
-                rectTransfrom.localPosition = new Vector3(rectTransfrom.localPosition.x, rectTransfrom.localPosition.y, 0);
+                rectTransfrom.localScale = Vector3.one;                rectTransfrom.localPosition = new Vector3(rectTransfrom.localPosition.x, rectTransfrom.localPosition.y, 0);
             }
+        }
+
+        public void Setup(GameObject tabaleContentRoot, GameObject tableItemPrefab)
+        {
+            _rootContent = tabaleContentRoot;
+            _tableItemPrefab = tableItemPrefab;
         }
     }
 }
