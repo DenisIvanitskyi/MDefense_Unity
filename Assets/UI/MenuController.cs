@@ -31,6 +31,7 @@ namespace Assets.UI
             _settingsView.SetActive(false);
             _saveGamesView.SetActive(false);
             _newGameView.SetActive(false);
+
             DisplayGeneralMenu();
         }
 
@@ -71,8 +72,8 @@ namespace Assets.UI
 
                 _currentView = view;
 
-                _currentView.SetActive(true);
-                if (_currentView.TryGetComponent<IActivateView>(out var activateItem))
+                _currentView?.SetActive(true);
+                if (_currentView != null && _currentView.TryGetComponent<IActivateView>(out var activateItem))
                     activateItem.OnActivateItem();
             }
         }
