@@ -27,6 +27,9 @@ namespace Assets
         [SerializeField]
         private GameObject _listItemPrefab;
 
+        [SerializeField]
+        private TextMeshProUGUI _errorMessageOnCreateGameView;
+
         public override void InstallBindings()
         {
             RefInstances.Container = Container;
@@ -53,7 +56,7 @@ namespace Assets
             Container.Bind(typeof(IMenuController), typeof(IInitializable))
                 .To<MenuController>()
                 .FromInstance(new MenuController(_defaultMenuView, _newGameMenuView, _saveGamesMenuView, _settingsMenuView, _saveGamesContent, 
-                    _inputNewGameName, _inputSearchSaveGames))
+                    _inputNewGameName, _inputSearchSaveGames, _errorMessageOnCreateGameView))
                 .AsSingle();
 
             Container.Bind<ISaveGamesController>()

@@ -3,6 +3,8 @@ namespace Assets.UI
 {
     public interface IMenuController
     {
+        void OnNewGameTextChanged();
+
         void DisplayMenu();
 
         void DisplayNewGame();

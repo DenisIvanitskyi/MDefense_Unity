@@ -39,10 +39,16 @@ namespace Assets.UI.Menu
                 _saveGamesController?.ApplyFilter(e => e.ToLower().IndexOf(filterString.ToLower()) >= 0);
         }
 
+        public void CheckNewGameNameRule()
+        {
+            _menuController?.OnNewGameTextChanged();
+        }
+
         public void CreateNewGame()
         {
             var gameName = _menuController.GetNewGameName();
-            _gameCreator?.CreateNewGame(gameName);
+            if (!string.IsNullOrEmpty(gameName))
+                _gameCreator?.CreateNewGame(gameName);
         }
 
         public void OpenDefaultMenu()

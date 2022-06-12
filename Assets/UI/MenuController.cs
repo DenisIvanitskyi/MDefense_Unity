@@ -13,6 +13,7 @@ namespace Assets.UI
         private readonly GameObject _saveGamesList;
         private readonly TMP_InputField _inputNewGameName;
         private readonly TMP_InputField _inputSearchSaveGames;
+        private readonly TextMeshProUGUI _errorMsgOnCreateGame;
         private IGameQuit _gameQuit;
         private ILoadSaveGamesService _loadSaveGamesService;
         private ISaveGamesController _saveGamesController;
@@ -24,7 +25,8 @@ namespace Assets.UI
             GameObject settingsView,
             GameObject saveGamesList,
             TMP_InputField inputNewGameName,
-            TMP_InputField inputSearchSaveGames)
+            TMP_InputField inputSearchSaveGames,
+            TextMeshProUGUI errorMsgOnCreateGame)
         {
             _defaulView = defaultView;
             _newGameView = newGameView;
@@ -34,6 +36,8 @@ namespace Assets.UI
 
             _inputNewGameName = inputNewGameName;
             _inputSearchSaveGames = inputSearchSaveGames;
+
+            _errorMsgOnCreateGame = errorMsgOnCreateGame;
         }
 
         public void Initialize()
@@ -47,6 +51,15 @@ namespace Assets.UI
             _saveGamesView.SetActive(false);
             _newGameView.SetActive(false);
             DisplayMenu();
+        }
+
+        public void OnNewGameTextChanged()
+        {
+            var newGameName = _inputNewGameName.text;
+            if (string.IsNullOrEmpty(newGameName))
+                _errorMsgOnCreateGame.text = "* Game name can not be empty!";
+            else
+                _errorMsgOnCreateGame.text = "";
         }
 
         public void DisplayMenu()
