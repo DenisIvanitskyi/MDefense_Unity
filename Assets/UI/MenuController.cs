@@ -14,8 +14,8 @@ namespace Assets.UI
         private readonly TMP_InputField _inputNewGameName;
         private readonly TMP_InputField _inputSearchSaveGames;
         private readonly TextMeshProUGUI _errorMsgOnCreateGame;
-        private IGameQuit _gameQuit;
-        private ILoadSaveGamesService _loadSaveGamesService;
+        private IGameQuitPartService _gameQuit;
+        private IGetAllGamesPartSerivce _loadSaveGamesService;
         private ISaveGamesController _saveGamesController;
         private ILoggerService _loggerService;
 
@@ -42,15 +42,15 @@ namespace Assets.UI
 
         public void Initialize()
         {
-            _gameQuit = RefInstances.Container.TryResolve<IGameQuit>();
-            _loadSaveGamesService = RefInstances.Container.TryResolve<ILoadSaveGamesService>();
+            _gameQuit = RefInstances.Container.TryResolve<IGameQuitPartService>();
+            _loadSaveGamesService = RefInstances.Container.TryResolve<IGetAllGamesPartSerivce>();
             _saveGamesController = RefInstances.Container.TryResolve<ISaveGamesController>();
             _loggerService = RefInstances.Container.TryResolve<ILoggerService>();
 
             _settingsView.SetActive(false);
             _saveGamesView.SetActive(false);
             _newGameView.SetActive(false);
-            DisplayMenu();
+            DisplayGeneralMenu();
         }
 
         public void OnNewGameTextChanged()
@@ -62,7 +62,7 @@ namespace Assets.UI
                 _errorMsgOnCreateGame.text = "";
         }
 
-        public void DisplayMenu()
+        public void DisplayGeneralMenu()
         {
             ChangeCurrentView(_defaulView);
         }
@@ -76,7 +76,7 @@ namespace Assets.UI
         {
             ChangeCurrentView(_saveGamesView);
 
-            var games = _loadSaveGamesService.GetSaveGames();
+            var games = _loadSaveGamesService.GetGames();
             _saveGamesController?.Show(games.Select(e => e.Name));
         }
 
@@ -87,7 +87,7 @@ namespace Assets.UI
 
         public void Exit()
         {
-            _gameQuit?.QuitFromGame();
+            _gameQuit?.QuitGame();
         }
 
         private void ChangeCurrentView(GameObject view)

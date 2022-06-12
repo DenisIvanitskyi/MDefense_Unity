@@ -40,8 +40,12 @@ namespace Assets
                 .FromInstance(loggerService)
                 .AsSingle();
 
-            Container.Bind(typeof(IGameQuit), 
-                    typeof(ICreateNewGame), typeof(ILoadSaveGamesService), typeof(IInitializable))
+            Container.Bind<IValidationGameNameService>()
+                .To<ValidationService>()
+                .AsSingle();
+
+            Container.Bind(typeof(IGameQuitPartService), 
+                    typeof(IGameService), typeof(IGetAllGamesPartSerivce), typeof(IInitializable))
                 .To<GameService>()
                 .AsSingle()
                 .WithArguments<Action>(QuitGame)

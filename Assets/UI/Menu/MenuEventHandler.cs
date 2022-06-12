@@ -17,12 +17,12 @@ namespace Assets.UI.Menu
     {
 
         private IMenuController _menuController;
-        private ICreateNewGame _gameCreator;
+        private IGameService _gameCreator;
         private ISaveGamesController _saveGamesController;
 
         [Inject]
         public void Constructor(IMenuController menuController,
-            ICreateNewGame gameCreator,
+            IGameService gameCreator,
             ISaveGamesController saveGamesController)
         {
             _menuController = menuController;
@@ -39,21 +39,9 @@ namespace Assets.UI.Menu
                 _saveGamesController?.ApplyFilter(e => e.ToLower().IndexOf(filterString.ToLower()) >= 0);
         }
 
-        public void CheckNewGameNameRule()
-        {
-            _menuController?.OnNewGameTextChanged();
-        }
-
-        public void CreateNewGame()
-        {
-            var gameName = _menuController.GetNewGameName();
-            if (!string.IsNullOrEmpty(gameName))
-                _gameCreator?.CreateNewGame(gameName);
-        }
-
         public void OpenDefaultMenu()
         {
-            _menuController?.DisplayMenu();
+            _menuController?.DisplayGeneralMenu();
         }
 
         public void OpenNewGame()

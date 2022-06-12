@@ -5,7 +5,7 @@ namespace Assets.UI
     {
         void OnNewGameTextChanged();
 
-        void DisplayMenu();
+        void DisplayGeneralMenu();
 
         void DisplayNewGame();
 
