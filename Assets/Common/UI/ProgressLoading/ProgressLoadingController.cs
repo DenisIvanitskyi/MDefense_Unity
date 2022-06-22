@@ -1,11 +1,9 @@
 ﻿using Assets.Common.UI.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace Assets.Common.UI.ProgressLoading
 {
@@ -20,15 +18,12 @@ namespace Assets.Common.UI.ProgressLoading
         [SerializeField]
         private RectTransform _loaderContainerTrnsform;
 
-        public async void Start()
-        {
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            await 
-                StartLoading(Enumerable.Range(0, 10).Select((e, i) => new LoadingActionModel($"Loading {i + 1}", () => Task.Delay(TimeSpan.FromSeconds(1)))).ToArray());
-        }
+        [SerializeField]
+        private GameObject _gameObject;
 
         public async Task<LoadingInfoResult> StartLoading(params ILoadingAction[] loadingAction)
         {
+            _gameObject.gameObject.SetActive(false);
             transform.parent.gameObject.SetActive(true);
 
             _loadingGameObject.sizeDelta = new Vector2(0, _loadingGameObject.sizeDelta.y);
@@ -39,8 +34,8 @@ namespace Assets.Common.UI.ProgressLoading
             {
                 try
                 {
-                    _loadingInfoTextGameObject.text = act.Title;
                     await act.StartLoading();
+                    _loadingInfoTextGameObject.text = act.Title;
                 }
                 catch (Exception er)
                 {
@@ -52,7 +47,9 @@ namespace Assets.Common.UI.ProgressLoading
                 }
             }
 
+            await Task.Delay(TimeSpan.FromSeconds(1));
             transform.parent.gameObject.SetActive(false);
+            _gameObject.gameObject.SetActive(true);
 
             var loadingInfoResult = new LoadingInfoResult(listOfExceptions);
             return loadingInfoResult;
