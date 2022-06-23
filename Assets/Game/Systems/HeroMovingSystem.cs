@@ -22,7 +22,10 @@ namespace Assets.Game.Systems
             foreach (var entity in _filter)
             {
                 var movableComponent = entity.Components.FirstOrDefault(c => c is HeroMovableComponent) as HeroMovableComponent;
-                if (movableComponent != null && movableComponent.TargetData.BlockObject != null && movableComponent.TargetData.Unit != null)
+                if (movableComponent != null
+                    && movableComponent.TargetData.BlockObject != null 
+                    && movableComponent.TargetData.Unit != null
+                    && movableComponent.IsMoving)
                 {
                     MoveToTarget(movableComponent.TargetData, movableComponent);
                 }
@@ -32,8 +35,14 @@ namespace Assets.Game.Systems
         private void MoveToTarget(BlockData block, HeroMovableComponent heroMovableComponent)
         {
             var newPosition = Vector2.MoveTowards(heroMovableComponent.Transform.position,
-                    block.BlockObject.transform.position, Time.deltaTime * 0.9f);
+                    block.BlockObject.transform.position, Time.fixedDeltaTime * heroMovableComponent.Speed);
             heroMovableComponent.Transform.position = new Vector3(newPosition.x, newPosition.y, heroMovableComponent.Transform.position.z);
+            if (Vector2.Distance(newPosition, block.BlockObject.transform.position) <= 0.5f)
+            {
+                heroMovableComponent.IsMoving = false;
+                heroMovableComponent.Transform.position = new Vector2(block.BlockObject.transform.position.x, block.BlockObject.transform.position.y);
+                heroMovableComponent.VectorPosition = heroMovableComponent.Transform.position;
+            }
 
         }
     }

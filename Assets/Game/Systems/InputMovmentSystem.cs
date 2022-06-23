@@ -33,11 +33,13 @@ namespace Assets.Game.Systems
                 foreach (var item in _filter)
                 {
                     var movableComponent = (HeroMovableComponent)item.Components.FirstOrDefault(c => c is HeroMovableComponent);
+                    var nextPosition = movableComponent.VectorPosition + offset;
                     var block = mapGeneratorComponent.ChunkItems.Find(e =>
-                            e.BlockObject.transform.position.x == movableComponent.Transform.position.x + offset.x
-                            && e.BlockObject.transform.position.y == movableComponent.Transform.position.y + offset.y);
+                            e.BlockObject.transform.position.x == nextPosition.x
+                            && e.BlockObject.transform.position.y == nextPosition.y);
                     if (block.BlockObject != null && block.Unit.Height <= 1)
                     {
+                        movableComponent.IsMoving = true;
                         movableComponent.TargetData = block;
                     }
                 }

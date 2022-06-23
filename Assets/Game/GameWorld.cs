@@ -88,7 +88,7 @@ namespace Assets.Game
 
             var heroCharacter = _world.CreateEntity();
             heroCharacter.AddComponent(new HeroComponent() { Hero = "" });
-            heroCharacter.AddComponent(new HeroMovableComponent() { Transform = hero.transform });
+            heroCharacter.AddComponent(new HeroMovableComponent() { Transform = hero.transform, VectorPosition = new Vector2() });
             heroCharacter.AddComponent(new HeroSpriteComponent() { SpriteRenderer = heroSpriteRender });
             heroCharacter.AddComponent(new CameraTargetComponent() { TargetPosition = hero.transform });
         }

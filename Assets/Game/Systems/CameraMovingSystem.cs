@@ -30,9 +30,9 @@ namespace Assets.Game.Systems
                 var cameraTargetComponent = entity.Components.FirstOrDefault(c => c is CameraTargetComponent) as CameraTargetComponent;
                 if (_camera != null && cameraTargetComponent != null)
                 {
-                    var newLocation = Vector2.Lerp(_camera.transform.position, cameraTargetComponent.TargetPosition.position, Time.deltaTime * 0.5f);
+                    var newLocation = Vector2.MoveTowards(_camera.transform.position, cameraTargetComponent.TargetPosition.position, Time.deltaTime * 5);
                     var distance = Vector2.Distance(newLocation, cameraTargetComponent.TargetPosition.position);
-                    if (distance >= 0.01f)
+                    if (distance >= 0.1f)
                         _camera.transform.position = new Vector3(newLocation.x, newLocation.y, _camera.transform.position.z);
                 }
             }
